@@ -1,8 +1,8 @@
 <?php
-        if (!file_exists(__DIR__.'/data/config/config.php')) {
-           header('Location: /install', true, 303);
-           die();
-        }
+    if (!file_exists(__DIR__.'/data/config/config.php')) {
+       header('Location: install', true, 303);
+       die();
+    }
 ?>
 
 <?php
@@ -38,12 +38,13 @@
 				"id" => $b['id'],
 				"beername" => $b['name'],
 				"style" => $b['style'],
+				"styleid" => $b['styleId'],
         		"brewery" => $b['breweryName'],
         		"breweryImage" => $b['breweryImageUrl'],
 				"notes" => $b['notes'],
 				"abv" => $b['abv'],
-				"srm" => $b['srmAct'],
-				"ibu" => $b['ibuAct'],
+				"srm" => $b['srmEst'],
+				"ibu" => $b['ibuEst'],
 				"startAmount" => $b['startAmount'],
 				"amountPoured" => $b['amountPoured'],
 				"remainAmount" => $b['remainAmount'],
@@ -221,7 +222,7 @@
 
 									<h1><?php echo $beer['beername']; ?></h1>
                   <h2 class="subhead"><?php echo $beer['brewery']; ?></h2>
-									<h2 class="subhead"><?php echo $beer['style']; ?></h2>
+									<h2 class="subhead"><?php echo $beer['style'] . " (" . $beer['styleid'] . ")"; ?></h2>
 									<p><?php echo $beer['notes']; ?></p>
 								</td>
 

@@ -11,11 +11,11 @@ class BreweryManager{
 
 		// download the image so we have it locally
 		if ($brewery->get_imageUrl() && filter_var($brewery->get_imageUrl(), FILTER_VALIDATE_URL) ) {
-			$uniquename = uniqid("brewery-") .  ".png";
+			$uniquename = uniqid("brewery-");
 			$imagepath = "../data/images/" . $uniquename;
 			copy($brewery->get_imageUrl(), $imagepath);
 				if (file_exists($imagepath)) {
- 				  $brewery->set_imageUrl("/data/images/" . $uniquename);
+ 				  $brewery->set_imageUrl("data/images/" . $uniquename);
   			}
 		}
 

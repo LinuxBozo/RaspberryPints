@@ -66,7 +66,7 @@ return $output;
 //
 // remove_remarks will strip the sql comment lines out of an uploaded sql file
 //
-function remove_remarks($con,$sql)
+function remove_remarks($sql)
 {
 $lines = explode("\n", $sql);
 

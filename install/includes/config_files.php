@@ -8,8 +8,8 @@
 	$mainconfigstring .= "    function db() {\n";
 	$mainconfigstring .= '        $link = ';
 	$mainconfigstring .= "mysqli_connect('" . $servername . "', '" . $dbuser . "', '" . $dbpass1 . "');\n";
-	$mainconfigstring .= "        mysqli_select_db($link,'" . $databasename . "');\n";
-	$mainconfigstring .= "        return $link;\n";
+	$mainconfigstring .= "        mysqli_select_db(\$link,'" . $databasename . "');\n";
+	$mainconfigstring .= "        return \$link;\n";
 	$mainconfigstring .= "	}\n";
 	$mainconfigstring .= '    $rpintsversion="1.0.0.369";' . "\n";
 	$mainconfigstring .= "?>";
@@ -24,10 +24,10 @@
 	$adminconfig1 .= '   //Connect to server and select databse.' . "\n";
 	$adminconfig1 .= '   $con=mysqli_connect("$host", "$username", "$password")or die("cannot connect to server");' . "\n";
 	$adminconfig1 .= '   mysqli_select_db($con,"$db_name")or die("cannot select DB");' . "\n\n";
-	$adminconfig1 .= "   function mysqli_result($res, $row, $field=0) {\n";
-	$adminconfig1 .= "			$res->data_seek($row);\n";
-	$adminconfig1 .= "			$datarow = $res->fetch_array();\n";
-	$adminconfig1 .= "			return $datarow[$field];\n";
+	$adminconfig1 .= "   function mysqli_result(\$res, \$row, \$field=0) {\n";
+	$adminconfig1 .= "			\$res->data_seek(\$row);\n";
+	$adminconfig1 .= "			\$datarow = \$res->fetch_array();\n";
+	$adminconfig1 .= "			return \$datarow[\$field];\n";
 	$adminconfig1 .= "	  }\n";
 	$adminconfig1 .= '?>';
 

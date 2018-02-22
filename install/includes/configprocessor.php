@@ -125,7 +125,7 @@ require_once __DIR__.'/config_files.php';
 		mkdir($ddd);
 	}
 
-  // copy in the logos if necessary
+  	// copy in the logos if necessary
 	if (!file_exists('../../data/images/logo.png')) {
 		 copy('../../img/logo.png', '../../data/images/logo.png');
 	}
@@ -157,38 +157,46 @@ require_once __DIR__.'/config_files.php';
 
 	$sql = "CREATE DATABASE " . $databasename;
 	// $result = mysqli_query($con,$sql);
-	mysqli_query($con,$sql) or die(mysqli_error());
+	mysqli_query($con,$sql) or die(mysqli_error($con));
 	mysqli_close($con);
 	echo "Success!<br>";
 	flush();
 
 	//-----------------Run The Schema File-------------------------
-	echo "Running Database Script...";
+	echo "Running Database Scripts...<br>";
 	flush();
-	$dbms_schema = "../../sql/schema.sql";
+	$schemas = array(
+		"../../sql/schema.sql",
+		"../../sql/data/beerstyles.sql",
+		"../../sql/data/config.sql",
+		"../../sql/data/kegstatuses.sql",
+		"../../sql/data/kegtypes.sql",
+		"../../sql/data/non-beerstyles.sql",
+		"../../sql/data/srmrgb.sql"
+	);
 
-
-	$sql_query = @fread(@fopen($dbms_schema, 'r'), @filesize($dbms_schema)) or die('Cannot find SQL schema file. ');
-
-	$sql_query = remove_remarks($sql_query);
-	$sql_query = remove_comments($sql_query);
-	$sql_query = split_sql_file($sql_query, ';');
-
-
-	mysqli_connect($servername,'root',$rootpass) or die('error in connection');
+	$con=mysqli_connect($servername,'root',$rootpass) or die('error in connection');
 	mysqli_select_db($con,$databasename) or die("Cannot select the database");
+	foreach($schemas as $dbms_schema){
+        echo "   " . $dbms_schema . "<br>";
+        flush();
+		$sql_query = @fread(@fopen($dbms_schema, 'r'), @filesize($dbms_schema)) or die('Cannot find SQL schema file. ');
 
-	$i=1;
-	foreach($sql_query as $sql){
-		//echo $i++;
-		//echo "	";
-		//echo $sql;
-		//echo "<br>";
-		mysqli_query($con,$sql) or die('error in query');
+		$sql_query = remove_remarks($sql_query);
+		$sql_query = remove_comments($sql_query);
+		$sql_query = split_sql_file($sql_query, ';');
+
+		$i=1;
+		foreach($sql_query as $sql){
+			//echo $i++;
+			//echo "	";
+			//echo $sql;
+			//echo "<br>";
+			mysqli_query($con,$sql) or die('error in query');
+		}
 	}
-
 	mysqli_close($con);
-	echo "Success!<br>";
+	echo " ...Success!<br>";
 	flush();
 
 	//-----------------Create RPints User--------------------------
@@ -199,7 +207,7 @@ require_once __DIR__.'/config_files.php';
 
 	$sql = "GRANT ALL ON *.* TO '" . $dbuser . "' IDENTIFIED BY '" . $dbpass1 . "' WITH GRANT OPTION;";
 	// $result = mysqli_query($con,$sql);
-	mysqli_query($con,$sql) or die(mysqli_error());
+	mysqli_query($con,$sql) or die(mysqli_error($con));
 	mysqli_close($con);
 	echo "Success!<br>";
 	flush();
@@ -209,13 +217,13 @@ require_once __DIR__.'/config_files.php';
 	echo "Adding new admin user...";
 	flush();
 	$con=mysqli_connect($servername,"root",$rootpass) or die('error in connection');
-	mysqli_select_db($databasename, $con) or die("Cannot select the database");
+	mysqli_select_db($con,$databasename) or die("Cannot select the database");
 	// Check connection
 
 	$currentdate = Date('Y-m-d H:i:s');
 	$sql = "INSERT INTO users (username, password, name, email, createdDate, modifiedDate) VALUES ('" . $adminuser . "','" . $adminhash . "','" . $adminname . "','" . $adminemail . "','" . $currentdate . "','" . $currentdate . "');";
 	//$result = mysqli_query($con,$sql);
-	mysqli_query($con,$sql) or die(mysqli_error());
+	mysqli_query($con,$sql) or die(mysqli_error($con));
 	mysqli_close($con);
 	echo "Success!<br>";
 	flush();
@@ -226,7 +234,7 @@ require_once __DIR__.'/config_files.php';
 			echo "Adding sample data...";
 			flush();
 
-			$dbms_schema = "../../sql/test_data.sql";
+			$dbms_schema = "../../sql/data/test_data.sql";
 
 
 			$sql_query = @fread(@fopen($dbms_schema, 'r'), @filesize($dbms_schema)) or die('Cannot find SQL schema file. ');
@@ -243,7 +251,7 @@ require_once __DIR__.'/config_files.php';
 				//echo $i++;
 				//echo "	";
 				print("SQL: " + $sql);
-				mysqli_query($con,$sql) or die(mysqli_error());
+				mysqli_query($con,$sql) or die(mysqli_error($con));
 			}
 			$mysqli_close($con);
 			echo "Success!<br>";
