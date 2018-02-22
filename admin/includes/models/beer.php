@@ -78,27 +78,14 @@ class Beer
 		else
 			$this->set_abv(null);
 
-		if( isset($postArr['srmAct']) )
-			$this->set_srm($postArr['srmAct']);
-		else if( isset($postArr['srmEst']) )
+		if( isset($postArr['srmEst']) )
 			$this->set_srm($postArr['srmEst']);
 		else if( isset($postArr['srm']) )
-			$this->set_srm($postArr['srm']);
+				$this->set_srm($postArr['srm']);
 		else
 			$this->set_srm(null);
 
-		if( isset($postArr['srmAct']) )
-			$this->set_srm($postArr['srmAct']);
-		else if( isset($postArr['srmEst']) )
-			$this->set_srm($postArr['srmEst']);
-		else if( isset($postArr['srm']) )
-			$this->set_srm($postArr['srm']);
-		else
-			$this->set_srm(null);
-
-		if( isset($postArr['ibuAct']) )
-			$this->set_ibu($postArr['ibuAct']);
-		else if( isset($postArr['ibuEst']) )
+		if( isset($postArr['ibuEst']) )
 			$this->set_ibu($postArr['ibuEst']);
 		else if( isset($postArr['ibu']) )
 			$this->set_ibu($postArr['ibu']);

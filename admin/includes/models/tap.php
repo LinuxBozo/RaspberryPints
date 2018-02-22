@@ -5,9 +5,6 @@ class Tap
 	private $_beerId;
 	private $_kegId;
 	private $_tapNumber;
-	private $_abv;
-	private $_srm;
-	private $_ibu;
 	private $_startAmount;
 	private $_currentAmount;
 	private $_active;
@@ -27,15 +24,6 @@ class Tap
 
 	public function get_tapNumber(){ return $this->_tapNumber; }
 	public function set_tapNumber($_tapNumber){ $this->_tapNumber = $_tapNumber; }
-
-	public function get_abv(){ return $this->_abv; }
-	public function set_abv($_abv){ $this->_abv = $_abv; }
-
-	public function get_srm(){ return $this->_srm; }
-	public function set_srm($_srm){ $this->_srm = $_srm; }
-
-	public function get_ibu(){ return $this->_ibu; }
-	public function set_ibu($_ibu){ $this->_ibu = $_ibu; }
 
 	public function get_startAmount(){ return $this->_startAmount; }
 	public function set_startAmount($_startAmount){ $this->_startAmount = $_startAmount; }
@@ -73,29 +61,6 @@ class Tap
 			$this->set_tapNumber($postArr['tapNumber']);
 		else
 			$this->set_tapNumber(null);
-
-		if( isset($postArr['abv']) )
-			$this->set_abv($postArr['abv']);
-		else
-			$this->set_abv(null);
-
-		if( isset($postArr['srm']) )
-			$this->set_srm($postArr['srm']);
-		else if( isset($postArr['srmAct']) )
-			$this->set_srm($postArr['srmAct']);
-		else if( isset($postArr['srmEst']) )
-			$this->set_srm($postArr['srmEst']);
-		else
-			$this->set_srm(null);
-
-		if( isset($postArr['ibu']) )
-			$this->set_ibu($postArr['ibu']);
-		else if( isset($postArr['ibuAct']) )
-			$this->set_ibu($postArr['ibuAct']);
-		else if( isset($postArr['ibuEst']) )
-			$this->set_ibu($postArr['ibuEst']);
-		else
-			$this->set_ibu(null);
 
 		if( isset($postArr['startAmount']) )
 			$this->set_startAmount($postArr['startAmount']);

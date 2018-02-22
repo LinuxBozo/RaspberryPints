@@ -138,15 +138,15 @@ include 'header.php';
 											</td>
 
 											<td>
-												<?php echo $tap->get_srm() ?>
+												<?php echo $beer->get_srm() ?>
 											</td>
 
 											<td>
-												<?php echo $tap->get_ibu() ?>
+												<?php echo $beer->get_ibu() ?>
 											</td>
 
 											<td>
-												<?php echo $tap->get_abv() ?>
+												<?php echo $beer->get_abv() ?>
 											</td>
 
 											<td>

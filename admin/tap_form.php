@@ -106,30 +106,6 @@ include 'header.php';
 			</tr>
 			<tr>
 				<td>
-					SRM*
-				</td>
-				<td>
-					<input type="text" id="srm" class="mediumbox" name="srm" value="<?php echo $tap->get_srm() ?>" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					IBU*
-				</td>
-				<td>
-					<input type="text" id="ibu" class="mediumbox" name="ibu" value="<?php echo $tap->get_ibu() ?>" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					ABV*
-				</td>
-				<td>
-					<input type="text" id="abv" class="mediumbox" name="abv" value="<?php echo $tap->get_abv() ?>" />
-				</td>
-			</tr>
-			<tr>
-				<td>
 					Keg*
 				</td>
 				<td>
@@ -207,19 +183,6 @@ include 'scripts.php';
 		};
 
 		$('#tap-form')
-			.on('change', '#beerId', function(){
-				var $this = $(this);
-
-				if( $this.val() ){
-					var $form = $('#tap-form'),
-						beer = beerList[$this.val()];
-
-					$form
-						.find('#srm').val(beer['srm']).end()
-						.find('#ibu').val(beer['ibu']).end()
-						.find('#abv').val(beer['abv']).end();
-				}
-			})
 			.on('change', '#kegId', function(){
 				var $this = $(this);
 
@@ -235,9 +198,6 @@ include 'scripts.php';
 		$('#tap-form').validate({
 		rules: {
 			beerId: { required: true },
-			srm: { required: true, number: true },
-			ibu: { required: true, number: true },
-			abv: { required: true, number: true },
 			kegId: { required: true },
 			startAmount: { required: true, number: true }
 		}
